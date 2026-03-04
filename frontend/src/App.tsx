@@ -1,35 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Sidebar } from "./components/Sidebar";
+import { ChatWindow } from "./components/ChatWindow";
+import { useDocuments } from "./hooks/useDocuments";
+import { useChat } from "./hooks/useChat";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const { documents, isLoading, isUploading, error, upload, remove } = useDocuments();
+  const { messages, isLoading: isChatLoading, error: chatError, sendMessage, clearMessages } = useChat();
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="flex h-screen bg-gray-950 overflow-hidden">
+      <Sidebar
+        documents={documents}
+        isLoading={isLoading}
+        isUploading={isUploading}
+        error={error}
+        onUpload={upload}
+        onDelete={remove}
+      />
+      <ChatWindow
+        messages={messages}
+        isLoading={isChatLoading}
+        error={chatError}
+        onSend={sendMessage}
+        onClear={clearMessages}
+      />
+    </div>
+  );
 }
-
-export default App
