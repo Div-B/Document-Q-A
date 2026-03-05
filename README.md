@@ -84,7 +84,7 @@ flowchart TD
         end
     end
 
-    subgraph Database["Supabase (PostgreSQL + pgvector)"]
+    subgraph Database["Supabase (PostgreSQL + pgvector)"<br/>]
         T[(documents<br/>table)]
         U[(chunks table<br/>vector 1536)]
     end
