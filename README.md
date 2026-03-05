@@ -21,7 +21,7 @@ An AI powered document Q&A app. Upload PDFs and ask questions about them. Built 
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/YOUR_USERNAME/doc-qa-app.git
+git clone https://github.com/Div-B/Document-Q-A/.git
 cd doc-qa-app
 ```
 
@@ -32,13 +32,6 @@ uv install
 cp .env.example .env
 # Fill in your credentials in .env
 uv run uvicorn app.main:app --reload
-```
-## 📝 Environment Variables
-```bash
-OPENAI_API_KEY=       # OpenAI API key
-SUPABASE_URL=         # Supabase project URL
-SUPABASE_KEY=         # Supabase publishable key
-MAX_FILE_SIZE_MB=10   # Maximum PDF upload size(default 10MB)
 ```
 
 ### 3. Frontend setup
@@ -56,6 +49,13 @@ Run the SQL in `backend/supabase/schema.sql` in your Supabase SQL editor.
 - Frontend: http://localhost:5173
 - API docs: http://localhost:8000/docs
 
+## 📝 Environment Variables
+```bash
+OPENAI_API_KEY=       # OpenAI API key
+SUPABASE_URL=         # Supabase project URL
+SUPABASE_KEY=         # Supabase publishable key
+MAX_FILE_SIZE_MB=10   # Maximum PDF upload size(default 10MB)
+```
 ## Architecture
 ```mermaid
 flowchart TD
@@ -103,6 +103,7 @@ flowchart TD
     O --> V
     R --> W
     S --> G
+```
 
 ## How RAG Works
 
