@@ -119,13 +119,13 @@ Traditional LLMs can't answer questions about your private documents. RAG solves
 ## 🛠️ Tech Stack
 
 | Layer | Technology |
-|---|---|---|
-| Frontend | React + TypeScript
+|---|---|
+| Frontend | React + TypeScript |
 | Styling | Tailwind CSS |
-| Backend | FastAPI (Python) | 
+| Backend | FastAPI (Python) |
 | LLM | GPT-4o |
 | Embeddings | text-embedding-3-small |
-| Database | Supabase (PostgreSQL) | 
+| Database | Supabase (PostgreSQL) |
 | Vector Search | pgvector |
 | PDF Parsing | PyMuPDF |
 
