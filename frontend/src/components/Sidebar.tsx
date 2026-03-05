@@ -47,12 +47,17 @@ export const Sidebar = ({ documents, isLoading, isUploading, error, onUpload, on
                 📄 {sanitizeFileName(doc.name)}
                 </span>
                 <button
-                  onClick={() => onDelete(doc.id)}
-                  className="text-gray-600 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 text-xs shrink-0"
-                  title="Delete document"
-                >
-                  ✕
+                    onClick={() => {
+                        if (window.confirm(`Delete "${sanitizeFileName(doc.name)}"? This cannot be undone.`)) {
+                            onDelete(doc.id);
+                        }
+                    }}
+                    className="text-gray-600 hover:text-red-400 transition-colors opacity-0 group-hover:opacity-100 text-xs shrink-0"
+                    title="Delete document"
+                    >
+                    ✕
                 </button>
+                
               </li>
             ))}
           </ul>
