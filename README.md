@@ -69,24 +69,24 @@ flowchart TD
     subgraph Backend["Backend (FastAPI + Python)"]
         subgraph Upload["Upload Pipeline"]
             J[POST /documents/upload]
-            J --> K[pdf_service\nExtract text]
-            K --> L[chunking_service\n500 words, 50 overlap]
-            L --> M[embedding_service\nOpenAI batch embed]
+            J --> K[pdf_service<br/>Extract text]
+            K --> L[chunking_service<br/>500 words, 50 overlap]
+            L --> M[embedding_service<br/>OpenAI batch embed]
         end
 
         subgraph Query["Query Pipeline - RAG"]
             N[POST /documents/query/stream]
-            N --> O[Embed question \n text-embedding-3-small]
-            O --> P[Similarity search\ncosine distance]
+            N --> O[Embed question <br/>text-embedding-3-small]
+            O --> P[Similarity search<br/>cosine distance]
             P --> Q[Top 5 chunks retrieved]
-            Q --> R[GPT-4o generates answer\nwith page citations]
-            R --> S[Stream tokens\nto frontend]
+            Q --> R[GPT-4o generates answer<br/>with page citations]
+            R --> S[Stream tokens<br/>to frontend]
         end
     end
 
     subgraph Database["Supabase (PostgreSQL + pgvector)"]
-        T[(documents\ntable)]
-        U[(chunks table\nvector 1536)]
+        T[(documents<br/>table)]
+        U[(chunks table<br/>vector 1536)]
     end
 
     subgraph OpenAI["OpenAI API"]
