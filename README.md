@@ -21,7 +21,7 @@ An AI powered document Q&A app. Upload PDFs and ask questions about them. Built 
 
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/Div-B/Document-Q-A/.git
+git clone https://github.com/Div-B/Document-Q-A.git
 cd doc-qa-app
 ```
 
