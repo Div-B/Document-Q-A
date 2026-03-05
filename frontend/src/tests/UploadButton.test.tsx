@@ -1,6 +1,15 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { UploadButton } from '../components/UploadButton';
+import toast from 'react-hot-toast';
+
+vi.mock('react-hot-toast', () => ({
+  default: {
+    error: vi.fn(),
+    success: vi.fn(),
+    loading: vi.fn(),
+  },
+}));
 
 describe('UploadButton', () => {
   it('renders upload button', () => {
@@ -26,19 +35,16 @@ describe('UploadButton', () => {
     const input = document.querySelector('input[type="file"]') as HTMLInputElement;
 
     await userEvent.upload(input, file);
-
     expect(onUpload).toHaveBeenCalledWith(file);
   });
 
-  it('rejects non-pdf files', () => {
+  it('rejects non-pdf files and shows toast error', () => {
     const onUpload = vi.fn();
-    const alertMock = vi.spyOn(window, 'alert').mockImplementation(() => {});
     render(<UploadButton onUpload={onUpload} isUploading={false} />);
 
     const file = new File(['dummy content'], 'test.png', { type: 'image/png' });
     const input = document.querySelector('input[type="file"]') as HTMLInputElement;
 
-    // Use fireEvent to bypass the accept attribute filter
     Object.defineProperty(input, 'files', {
       value: [file],
       configurable: true,
@@ -46,6 +52,6 @@ describe('UploadButton', () => {
     fireEvent.change(input);
 
     expect(onUpload).not.toHaveBeenCalled();
-    expect(alertMock).toHaveBeenCalledWith('Only PDF files are allowed.');
+    expect(toast.error).toHaveBeenCalledWith('Only PDF files are allowed.');
   });
 });

@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import type { Message } from "../types";
 import { streamQuery } from "../services/api";
+import toast from "react-hot-toast";
 
 export const useChat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -53,9 +54,12 @@ export const useChat = () => {
         }
       );
     } catch (err: any) {
-      setError(err.message || "Failed to get answer.");
-      setMessages((prev) => prev.filter((msg) => msg.id !== assistantMessage.id));
-      setIsLoading(false);
+        const message = err.message || "Failed to get answer.";
+        setError(message);
+        toast.error(message);
+      // Remove the empty assistant message on error
+        setMessages((prev) => prev.filter((msg) => msg.id !== assistantMessage.id));
+        setIsLoading(false);
     }
   }, [isLoading]);
 

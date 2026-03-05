@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import toast from "react-hot-toast";
 
 interface Props {
   onUpload: (file: File) => void;
@@ -13,13 +14,13 @@ export const UploadButton = ({ onUpload, isUploading }: Props) => {
   
     // Frontend validation
     if (file.type !== "application/pdf") {
-      alert("Only PDF files are allowed.");
+        toast.error("Only PDF files are allowed.");
       e.target.value = "";
       return;
     }
   
     if (file.size > 10 * 1024 * 1024) {
-      alert("File size must be under 10MB.");
+        toast.error("File size must be under 10MB.");
       e.target.value = "";
       return;
     }
@@ -27,7 +28,7 @@ export const UploadButton = ({ onUpload, isUploading }: Props) => {
     onUpload(file);
     e.target.value = "";
   };
-  
+
   return (
     <div>
       <input

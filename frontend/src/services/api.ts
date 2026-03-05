@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import type { Document, QueryRequest } from "../types";
 
 const BASE_URL = "http://localhost:8000";
@@ -8,8 +8,25 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  timeout: 30000,
 });
-
+// Global response interceptor — normalize all errors
+api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError<{ detail: string }>) => {
+      if (error.code === "ECONNABORTED") {
+        throw new Error("Request timed out. Please try again.");
+      }
+      if (!error.response) {
+        throw new Error("Cannot connect to server. Is the backend running?");
+      }
+      const detail = error.response.data?.detail;
+      if (typeof detail === "string") {
+        throw new Error(detail);
+      }
+      throw new Error(`Request failed with status ${error.response.status}`);
+    }
+  );
 export const uploadDocument = async (file: File): Promise<Document> => {
   const formData = new FormData();
   formData.append("file", file);

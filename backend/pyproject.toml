@@ -12,6 +12,7 @@ dependencies = [
     "pymupdf>=1.27.1",
     "python-dotenv>=1.2.2",
     "python-multipart>=0.0.22",
+    "slowapi>=0.1.9",
     "supabase>=2.28.0",
     "uvicorn[standard]>=0.41.0",
 ]
